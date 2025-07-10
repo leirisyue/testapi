@@ -1,4 +1,6 @@
 let usersCollection
+import mongodb from "mongodb"
+
 export default class UserDAO {
   static async injectDB(conn) {
     if (usersCollection) return
@@ -24,14 +26,20 @@ export default class UserDAO {
 
   static async getUserById(id) {
     return await usersCollection.findOne({
-      _id: new (await
-        import("mongodb")).ObjectId(id)
+      _id: new (await import("mongodb")).ObjectId(id)
     })
   }
 
+  // static async updateUser(id, updateData) {
+  //   return await usersCollection.updateOne(
+  //     { _id: new (await import("mongodb")).ObjectId(id) },
+  //     { $set: updateData }
+  //   )
+  // }
+
   static async updateUser(id, updateData) {
     return await usersCollection.updateOne(
-      { _id: new (await import("mongodb")).ObjectId(id) },
+      { _id: new  mongodb.ObjectId(id) }, /// <========== Chỗ bạn Khoa thay đổi , không import trong đây mà import ngay từ đầu
       { $set: updateData }
     )
   }

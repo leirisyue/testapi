@@ -2,13 +2,25 @@ import express from "express"
 import UserController from "../controllers/user.controller.js"
 const router = express.Router()
 
-router.route("/")
-  .get(UserController.getUsers)
-  .post(UserController.createUser)
-  
-router.route("/:id")
-  .get(UserController.getUserById)
-  .put(UserController.updateUser)
-  .delete(UserController.deleteUser)
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Lấy danh sách tất cả người dùng
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: Danh sách người dùng
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *       500:
+ *         description: Lỗi server
+ */
+router.get("/", UserController.getUsers)
 
 export default router
